@@ -564,7 +564,7 @@ if showTradeStats
     if barstate.islast
         update_table(tbl, tradeStatsHeader, totalTrades, totalWins, totalLosses, winLossRatio, winRate, totalEarlySignalFlips)
 
-//@version=4
+
 
 // 15-min time frame
 htf_long_signal = security(syminfo.tickerid, "15", startLongTrade, lookahead=barmerge.lookahead_on)
