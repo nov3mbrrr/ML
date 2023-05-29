@@ -564,16 +564,8 @@ if showTradeStats
     if barstate.islast
         update_table(tbl, tradeStatsHeader, totalTrades, totalWins, totalLosses, winLossRatio, winRate, totalEarlySignalFlips)
 
-
-
-// 15-min time frame
-htf_long_signal = security(syminfo.tickerid, "15", startLongTrade, lookahead=barmerge.lookahead_on)
-
-// 1-min time frame
-ltf_short_signal = security(syminfo.tickerid, "1", startShortTrade, lookahead=barmerge.lookahead_on)
-ltf_long_signal = security(syminfo.tickerid, "1", startLongTrade, lookahead=barmerge.lookahead_on)
-
-// Conditions for entering and exiting trades
-strategy.entry("Long", strategy.long, when=htf_long_signal and not ltf_short_signal)
-strategy.close("Long", when=ltf_short_signal)
-strategy.entry("Long", strategy.long, when=ltf_long_signal and htf_long_signal)
+        // Entry and exit conditions
+if startLongTrade
+    strategy.entry("Long", strategy.long, comment = "")
+if startShortTrade
+    strategy.close("Long", comment = "")
