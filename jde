@@ -2,8 +2,7 @@
 // ©jdehorty
 
 // @version=5
-strategy("Lorentzian STRATEGY", shorttitle="Lstrat LONG", overlay=true)
-
+indicator('Machine Learning: Lorentzian Classification', 'Lorentzian Classification', true, precision=4, max_labels_count=500) 
 
 import jdehorty/MLExtensions/2 as ml
 import jdehorty/KernelFunctions/2 as kernels
@@ -482,7 +481,6 @@ endLongTradeStrict = ((isHeldFourBars and isLastSignalBuy) or (isHeldLessThanFou
 endShortTradeStrict = ((isHeldFourBars and isLastSignalSell) or (isHeldLessThanFourBars and isNewBuySignal and isLastSignalSell)) and startShortTrade[4]
 isDynamicExitValid = not useEmaFilter and not useSmaFilter and not useKernelSmoothing
 endLongTrade = settings.useDynamicExits and isDynamicExitValid ? endLongTradeDynamic : endLongTradeStrict 
-
 endShortTrade = settings.useDynamicExits and isDynamicExitValid ? endShortTradeDynamic : endShortTradeStrict
 
 // =========================
@@ -563,9 +561,3 @@ if showTradeStats
     var tbl = ml.init_table()
     if barstate.islast
         update_table(tbl, tradeStatsHeader, totalTrades, totalWins, totalLosses, winLossRatio, winRate, totalEarlySignalFlips)
-
-        // Entry and exit conditions
-if startLongTrade
-    strategy.entry("Long", strategy.long, comment = "")
-if startShortTrade
-    strategy.close("Long", comment = "")
